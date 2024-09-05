@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "job-tracker"
+version = "0.1.0"
+description = "Collect job information worldwide"
+authors = ["Md. Abdul Alim <alim.abdul.5915@gmail.com>"]
+license = "N/A"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+Django = "^5.1.1"
+mysqlclient = "^2.2.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
