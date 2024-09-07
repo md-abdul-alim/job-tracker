@@ -61,7 +61,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_HOST_AUTH_METHOD: trust
-      POSTGRES_PORT: 5432
+      POSTGRES_PORT: ${DATABASE_PORT}
       TASK_MODULE: jt
       LOG_LEVEL: info
     healthcheck:
