@@ -77,6 +77,8 @@ services:
       dockerfile: web.Dockerfile
     volumes:
       - .:/code
+      - ./static:/code/static  # Ensure static files are mounted
+      - ./media:/code/media    # Ensure media files are mounted
     ports:
       - "8001:8000"
     env_file:
@@ -91,7 +93,7 @@ services:
       celery_worker:
         condition: service_healthy
     entrypoint: ["bash", "/code/entrypoint_web.sh"]
-    environment: &backend_environment
+    environment:
       POSTGRES_HOST: postgres
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -103,6 +105,20 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf  # Mount your nginx.conf
+      - ./static:/code/static  # Mount static files to Nginx container
+      - ./media:/code/media    # Mount media files to Nginx container
+    depends_on:
+      backend:
+        condition: service_healthy
+
 
 volumes:
   postgres_data:
