@@ -10,14 +10,17 @@ ENV C_INCLUDE_PATH=/usr/include/gdal
 # Set the working directory in the container
 WORKDIR /code
 
-# Install GDAL dependencies
-RUN apt-get update && apt-get install -y \
+# Install required dependencies, including GDAL and its related libraries
+RUN apt-get update && apt-get install -y --no-install-recommends \
     gdal-bin \
     libgdal-dev \
     gcc \
+    build-essential \
     python3-dev \
     curl \
-    && rm -rf /var/lib/apt/lists/*
+    software-properties-common \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
 
 ENV YOUR_ENV=${YOUR_ENV} \

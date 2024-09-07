@@ -3,8 +3,8 @@ services:
     image: redis:alpine
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
+      interval: 30s
+      timeout: 10s
       retries: 2
 
   rabbitmq:
@@ -21,7 +21,7 @@ services:
   postgres:
     image: postgres:latest
     volumes:
-      - postgres_data:/var/lib/postgresql/datas
+      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_DB: ${POSTGRES_DB}
@@ -42,7 +42,7 @@ services:
       context: ./
       dockerfile: worker.Dockerfile
     command:
-      - sh -c "sleep 10 && celery -A config worker --loglevel=info"
+      - sh -c "sleep 30 && celery -A jt worker --loglevel=info"
     volumes:
       - .:/code
     env_file:
@@ -54,7 +54,7 @@ services:
         condition: service_healthy
       postgres:
         condition: service_healthy
-    entrypoint: "./entrypoint_worker.sh"
+    entrypoint: ["bash", "/code/entrypoint_worker.sh"]
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_DB: ${POSTGRES_DB}
@@ -72,7 +72,7 @@ services:
       start_period: 40s
 
   backend:
-    build: &backend_build
+    build:
       context: ./
       dockerfile: web.Dockerfile
     volumes:
@@ -90,7 +90,7 @@ services:
         condition: service_healthy
       celery_worker:
         condition: service_healthy
-    entrypoint: "./entrypoint_web.sh"
+    entrypoint: ["bash", "/code/entrypoint_web.sh"]
     environment: &backend_environment
       POSTGRES_HOST: postgres
       POSTGRES_DB: ${POSTGRES_DB}
