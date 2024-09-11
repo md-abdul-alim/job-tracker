@@ -9,7 +9,6 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11.6"
 Django = "^5.1.1"
-mysqlclient = "^2.2.4"
 celery = "^5.4.0"
 python-dotenv = "^1.0.1"
 psycopg2-binary = "^2.9.9"
