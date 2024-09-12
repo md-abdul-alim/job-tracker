@@ -40,6 +40,8 @@ class Company(models.Model):
     non_tech = models.BooleanField(default=False)
     phone = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
+    is_employee_checked = models.BooleanField(default=False)
+    is_applied = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
