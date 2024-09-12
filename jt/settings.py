@@ -1,23 +1,20 @@
 from __future__ import absolute_import, unicode_literals
 import os
-import datetime
+import environ
 from pathlib import Path
-from dotenv import load_dotenv
-
-# Load environment variables from the .env file
-load_dotenv()
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(BASE_DIR / '.env')
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--zt%6(8f+$cxc_5udd-%ch2xt&53$brkzf#j@-lzo9(ot179t2'
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG', default=False)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -82,12 +79,12 @@ WSGI_APPLICATION = 'jt.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": os.getenv("DATABASE_ENGIN"),
-        "NAME": os.getenv("DATABASE_NAME"),
-        "USER": os.getenv("DATABASE_USER"),
-        "PASSWORD": os.getenv("DATABASE_PASSWORD"),
-        "HOST": os.getenv("POSTGRES_HOST"),
-        "PORT": os.getenv("POSTGRES_PORT"),
+        "ENGINE": env("DATABASE_ENGIN"),
+        "NAME": env("DATABASE_NAME"),
+        "USER": env("DATABASE_USER"),
+        "PASSWORD": env("DATABASE_PASSWORD"),
+        "HOST": env("DATABASE_HOST"),
+        "PORT": env("DATABASE_PORT"),
     }
 }
 
