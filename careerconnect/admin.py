@@ -13,8 +13,8 @@ class CompanyAdmin(admin.ModelAdmin):
 
 @admin.register(JobPortal)
 class JobPortalAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'website']
-    list_display = ['name', 'website']
+    search_fields = ['name', 'website', 'country', 'is_remote']
+    list_display = ['name', 'website', 'is_remote']
 
 
 @admin.register(JobCategory)
