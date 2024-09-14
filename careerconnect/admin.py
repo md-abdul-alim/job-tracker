@@ -15,6 +15,7 @@ class CompanyAdmin(admin.ModelAdmin):
 class JobPortalAdmin(admin.ModelAdmin):
     search_fields = ['name__icontains', 'website__icontains', 'country', 'is_remote']
     list_display = ['name', 'website', 'is_remote']
+    list_filter = ['country', 'is_remote']
 
 
 @admin.register(JobCategory)
