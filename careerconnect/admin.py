@@ -7,7 +7,7 @@ from .models import *
 class CompanyAdmin(admin.ModelAdmin):
     search_fields = ['name__icontains', 'industry__name__icontains', 'country__name__icontains']
     list_display = ['name', 'industry', 'country', 'website', 'linkedin_profile', 'remote', 'non_tech']
-    list_filter = ['industry__name', 'country__name', 'remote', 'non_tech']
+    list_filter = ['industry__name', 'country__name', 'remote', 'non_tech', 'is_employee_checked', 'is_applied']
     list_display_links = ['name']
 
 
