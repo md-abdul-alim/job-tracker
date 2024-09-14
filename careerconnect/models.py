@@ -89,6 +89,7 @@ class Employee(models.Model):
     phone = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     linkedin_profile = models.URLField(null=True, blank=True, unique=True)
+    target = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
