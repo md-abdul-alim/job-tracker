@@ -13,7 +13,7 @@ class CompanyAdmin(admin.ModelAdmin):
 
 @admin.register(JobPortal)
 class JobPortalAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'website', 'country', 'is_remote']
+    search_fields = ['name__icontains', 'website__icontains', 'country', 'is_remote']
     list_display = ['name', 'website', 'is_remote']
 
 
