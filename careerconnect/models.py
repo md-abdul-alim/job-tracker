@@ -8,16 +8,18 @@ class SearchQuery(models.Model):
         return self.name
 
 
-class JobPortal(models.Model):
+class Country(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    website = models.URLField(null=True, blank=True, unique=True)
 
     def __str__(self):
         return self.name
 
 
-class Country(models.Model):
+class JobPortal(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    website = models.URLField(null=True, blank=True, unique=True)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
+    is_remote = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
